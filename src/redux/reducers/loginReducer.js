@@ -1,14 +1,11 @@
-import { ADD_TOKEN } from "../actions";
-import { ADD_ROLE } from "../actions";
-import { ADD_USER } from "../actions";
+import { ADD_TOKEN, ADD_ROLE, ADD_USER } from "../actions";
 
 const initialState = {
   token: "",
   role: "",
   user: null,
 };
-
-const mainReducer = (state = initialState, action) => {
+const loginReducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_TOKEN:
       return {
@@ -25,9 +22,9 @@ const mainReducer = (state = initialState, action) => {
         ...state,
         user: action.payload,
       };
+    //aggiungi i vari casi di login e come salvare il token per averlo disponibile ovunque e comunque per le richiesta al backend
     default:
       return state;
   }
 };
-
-export default mainReducer;
+export default loginReducer;

@@ -1,7 +1,8 @@
-//import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 export const ADD_TO_FAVOURITE = "ADD_TO_FAVOURITE";
 export const REMOVE_FROM_FAVOURITE = "REMOVE_FROM_FAVOURITE";
+export const GET_JOBS = "GET_JOBS";
 export const IS_LOADING_TRUE = "IS_LOADING_TRUE";
 export const IS_LOADING_FALSE = "IS_LOADING_FALSE";
 export const HAS_ERROR_TRUE = "HAS_ERROR_TRUE";
@@ -44,46 +45,27 @@ export const HasErrorFalseAction = () => ({
   payload: false,
 });
 
-/*export const FetchQuery = async () => {
-  const query = useSelector(state => state.input);
-
-  if (query.length > 2) {
-    //if there's a value in the search box => fetch the information from rapidapi & display the result
+export const getJobsAction = (baseEndpoint, query) => {
+  return async (dispatch, getState) => {
     try {
-      let response = await fetch("https://striveschool-api.herokuapp.com/api/deezer/search?q=" + query, {
-        method: "GET",
-      }); // gets the information
-
+      dispatch({ type: IS_LOADING_TRUE });
+      dispatch({ type: HAS_ERROR_FALSE });
+      const response = await fetch(baseEndpoint + query + "&limit=20");
       if (response.ok) {
-        let result = await response.json(); // transforms the response to json
-        let songs = result.data; // gets the songs info
-        SaveQueryDataAction(songs);
-      } else {
-        console.log("error");
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  }
-};
+        const { data } = await response.json();
 
-export const fetchArtist = async (artistName, selector) => {
-  // artistName = "eminem", "metallica", etc...
-  // domQuerySelector = "#rockSection" etc...
-  try {
-    let response = await fetch("https://striveschool-api.herokuapp.com/api/deezer/search?q=" + artistName, {
-      method: "GET",
-    }); // gets the information
-    if (response.ok) {
-      let result = await response.json(); // transforms the response to json
-      let songInfo = result.data;
-      if (selector === "rock") addHomecardDataRockAction(songInfo);
-      else if (selector === "pop") AddHomecardDataPopAction(songInfo);
-      else if (selector === "hiphop") AddHomecardDataHipHopAction(songInfo);
-    } else {
-      console.log("error");
+        //   setJobs(data);
+        dispatch({ type: GET_JOBS, payload: data });
+        console.log("DATA", data);
+      } else {
+        dispatch({ type: HAS_ERROR_TRUE });
+        alert("Error fetching results");
+      }
+    } catch (error) {
+      dispatch({ type: HAS_ERROR_TRUE });
+      console.log(error);
+    } finally {
+      dispatch({ type: IS_LOADING_FALSE });
     }
-  } catch (err) {
-    console.log(err);
-  }
-};*/
+  };
+};
