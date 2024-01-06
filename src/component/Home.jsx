@@ -6,7 +6,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { getJobsAction } from "../redux/actions";
+import { FetchMainDataQueryAction } from "../redux/actions";
 
 const Home = () => {
   const [query, setQuery] = useState("");
@@ -15,8 +15,6 @@ const Home = () => {
   const isLoading = useSelector(state => state.main.controls.isLoading);
   const hasError = useSelector(state => state.main.controls.hasError);
 
-  const baseEndpoint = "http://localhost:3001/users";
-
   const handleChange = e => {
     setQuery(e.target.value);
   };
@@ -24,7 +22,7 @@ const Home = () => {
   const handleSubmit = async e => {
     e.preventDefault();
 
-    dispatch(getJobsAction(baseEndpoint, query));
+    dispatch(FetchMainDataQueryAction(query));
   };
   return (
     <div className="Home">

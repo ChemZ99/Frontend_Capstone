@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 
 export const ADD_TO_FAVOURITE = "ADD_TO_FAVOURITE";
 export const REMOVE_FROM_FAVOURITE = "REMOVE_FROM_FAVOURITE";
-export const GET_JOBS = "GET_JOBS";
+export const GET_MAIN_DATA = "GET_MAIN_DATA";
 export const IS_LOADING_TRUE = "IS_LOADING_TRUE";
 export const IS_LOADING_FALSE = "IS_LOADING_FALSE";
 export const HAS_ERROR_TRUE = "HAS_ERROR_TRUE";
@@ -45,18 +45,17 @@ export const HasErrorFalseAction = () => ({
   payload: false,
 });
 
-export const getJobsAction = (baseEndpoint, query) => {
+export const FetchMainDataQueryAction = query => {
   return async (dispatch, getState) => {
     try {
       dispatch({ type: IS_LOADING_TRUE });
       dispatch({ type: HAS_ERROR_FALSE });
-      const response = await fetch(baseEndpoint + query + "&limit=20");
+      const response = await fetch("http://localhost:3001/cities/name=" + query);
       if (response.ok) {
-        const { data } = await response.json();
+        const data = await response.json();
 
-        //   setJobs(data);
-        dispatch({ type: GET_JOBS, payload: data });
-        console.log("DATA", data);
+        dispatch({ type: GET_MAIN_DATA, payload: data });
+        console.log("MAIN_DATA", data);
       } else {
         dispatch({ type: HAS_ERROR_TRUE });
         alert("Error fetching results");

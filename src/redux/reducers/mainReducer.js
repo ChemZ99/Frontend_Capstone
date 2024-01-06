@@ -1,5 +1,5 @@
 import {
-  GET_JOBS,
+  GET_MAIN_DATA,
   HAS_ERROR_FALSE,
   HAS_ERROR_TRUE,
   IS_LOADING_FALSE,
@@ -65,7 +65,7 @@ const mainReducer = (state = initialState, action) => {
         ...state,
         favlist: state.favlist.filter(fav => fav !== action.payload),
       };
-    case GET_JOBS:
+    case GET_MAIN_DATA:
       return {
         ...state,
         content: action.payload,
