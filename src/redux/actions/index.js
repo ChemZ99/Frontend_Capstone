@@ -1,5 +1,3 @@
-import { useSelector } from "react-redux";
-
 export const ADD_TO_FAVOURITE = "ADD_TO_FAVOURITE";
 export const REMOVE_FROM_FAVOURITE = "REMOVE_FROM_FAVOURITE";
 export const GET_MAIN_DATA = "GET_MAIN_DATA";
@@ -15,14 +13,14 @@ export const addToken = token => ({ type: ADD_TOKEN, payload: token });
 export const addRole = role => ({ type: ADD_ROLE, payload: role });
 export const addUser = user => ({ type: ADD_USER, payload: user });
 
-export const addToFavoritesAction = companyName => ({
+export const addToFavoritesAction = favourite => ({
   type: ADD_TO_FAVOURITE,
-  payload: companyName,
+  payload: favourite,
 });
 
-export const removeFromFavoritesAction = companyName => ({
+export const removeFromFavoritesAction = favourite => ({
   type: REMOVE_FROM_FAVOURITE,
-  payload: companyName,
+  payload: favourite,
 });
 
 export const isLoadingTrueAction = () => ({

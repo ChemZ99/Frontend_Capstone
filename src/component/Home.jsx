@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { FetchMainDataQueryAction } from "../redux/actions";
+import Navbardef from "./Navbardef";
 
 const Home = () => {
   const [query, setQuery] = useState("");
@@ -23,13 +24,23 @@ const Home = () => {
     e.preventDefault();
 
     dispatch(FetchMainDataQueryAction(query));
+    navigate("/results");
   };
   return (
-    <div className="Home">
-      <Form onSubmit={handleSubmit}>
-        <Form.Control type="search" value={query} onChange={handleChange} placeholder="type and press Enter" required />
-      </Form>
-    </div>
+    <Container fluid className="bg-photo full p-0">
+      <Container fluid className="bg-layer full p-0">
+        <Navbardef></Navbardef>
+        <Form onSubmit={handleSubmit}>
+          <Form.Control
+            type="search"
+            value={query}
+            onChange={handleChange}
+            placeholder="type and press Enter"
+            required
+          />
+        </Form>
+      </Container>
+    </Container>
   );
 };
 export default Home;
