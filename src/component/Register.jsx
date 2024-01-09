@@ -11,6 +11,7 @@ import { useDispatch } from "react-redux";
 import { addToken } from "../redux/actions";
 import { useNavigate } from "react-router-dom";
 import { Container } from "react-bootstrap";
+import { Password } from "@mui/icons-material";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -19,7 +20,6 @@ const Register = () => {
     event.preventDefault();
     const data = new FormData(event.target);
     const dataobj = Object.fromEntries(data.entries());
-    console.log(dataobj);
     const risposta = await fetch("http://localhost:3001/auth/register", {
       method: "POST",
       headers: {
@@ -28,8 +28,8 @@ const Register = () => {
       body: JSON.stringify({
         username: dataobj.username,
         email: dataobj.email,
-        firstname: dataobj.firstname,
-        lastname: dataobj.lastname,
+        firstName: dataobj.firstname,
+        lastName: dataobj.lastname,
         password: dataobj.password,
       }),
     });
