@@ -5,6 +5,7 @@ import "./App.scss";
 import Login from "./component/Login";
 import Results from "./component/Results";
 import Register from "./component/Register";
+import Admin from "./component/Admin";
 
 const App = () => {
   return (
@@ -26,7 +27,7 @@ const App = () => {
           <Route path="/register" element={<Register />} />
         </Routes>
         <Routes>
-          <Route path="/admin" element={<Home />} />
+          <Route path="/admin" element={<Admin />} />
         </Routes>
       </BrowserRouter>
     </div>

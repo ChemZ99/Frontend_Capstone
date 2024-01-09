@@ -38,7 +38,7 @@ const Login = () => {
       const token = await risposta.json();
       console.log(token.accessToken);
       dispatch(addToken(token.accessToken));
-      navigate("/auth");
+      navigate("/admin");
     } else {
       //componente per errori
     }

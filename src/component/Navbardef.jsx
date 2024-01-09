@@ -16,12 +16,14 @@ function Navbardef() {
             <Link className="nav-link" to="/">
               Home
             </Link>
-            <Nav.Link>Profile</Nav.Link>
             <Link className="nav-link" to="/register">
               Register
             </Link>
             <Link className="nav-link" to="/login">
               Login
+            </Link>
+            <Link className="nav-link" to="/admin">
+              AdminPage
             </Link>
             <NavDropdown title="Links" id="basic-nav-dropdown">
               <NavDropdown.Item>Tripadvisor</NavDropdown.Item>
