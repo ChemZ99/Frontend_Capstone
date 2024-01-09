@@ -4,13 +4,14 @@ import Home from "./component/Home";
 import "./App.scss";
 import Login from "./component/Login";
 import Results from "./component/Results";
+import Register from "./component/Register";
 
 const App = () => {
   return (
     <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route path="" element={<Home />} />
+          <Route path="/" element={<Home />} />
         </Routes>
         <Routes>
           <Route path="/results" element={<Results />} />
@@ -22,7 +23,7 @@ const App = () => {
           <Route path="/login" element={<Login />} />
         </Routes>
         <Routes>
-          <Route path="/register" element={<Home />} />
+          <Route path="/register" element={<Register />} />
         </Routes>
         <Routes>
           <Route path="/admin" element={<Home />} />

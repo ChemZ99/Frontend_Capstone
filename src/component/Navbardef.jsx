@@ -13,7 +13,7 @@ function Navbardef() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Link className="nav-link" to="">
+            <Link className="nav-link" to="/">
               Home
             </Link>
             <Nav.Link>Profile</Nav.Link>

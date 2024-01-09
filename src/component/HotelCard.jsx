@@ -1,8 +1,10 @@
 import { Star, StarBorder } from "@mui/icons-material";
 import { Component } from "react";
 import Col from "react-bootstrap/Col";
-import { Accordion, Button, Card } from "react-bootstrap";
+import { Accordion, Button, Card, DropdownButton, Image } from "react-bootstrap";
 import ReviewCard from "./ReviewCard";
+import { Dropdown } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 
 class HotelCard extends Component {
   stardisplayer(stars) {
@@ -64,7 +66,13 @@ class HotelCard extends Component {
         <Card className="position-relative blurred">
           <Card.Body>
             <h1>{this.props.data.name}</h1>
-            <div className="photo-container">foto qui</div>
+            <div className="photo-container">
+              <img
+                className="cover"
+                src="https://cdn.openart.ai/stable_diffusion/a8fd2137227af30470de9007c65b0d8e49886e19_2000x2000.webp"
+                alt="hotel here"
+              ></img>
+            </div>
             <p>tipo di struttura: {this.props.data.hotelType}</p>
             <p>valutazione in stelle: {this.stardisplayer(this.props.data.stars)}</p>
             <p>aggiungi una descrizione dell hotel qui</p>
@@ -79,9 +87,24 @@ class HotelCard extends Component {
                 </Accordion.Body>
               </Accordion.Item>
             </Accordion>
-            <Button className="mt-2 ms-5" variant="outline-dark">
-              Prenota
-            </Button>
+            <DropdownButton className="ms-3 mt-3" menuVariant="dark" drop={"up"} title={"Prenota"}>
+              <Form className="ps-2 pe-2">
+                <Form.Group className="mb-3">
+                  <Form.Label>Data inizio</Form.Label>
+                  <Form.Control placeholder="data inizio prenotazione" />
+                </Form.Group>
+                <Form.Group className="mb-3">
+                  <Form.Label>Data fine</Form.Label>
+                  <Form.Control placeholder="data fine prenotazione" />
+                </Form.Group>
+                <Form.Group className="mb-3">
+                  <Form.Check type="checkbox" label="suite" />
+                </Form.Group>
+                <Button variant="primary" type="submit">
+                  Submit
+                </Button>
+              </Form>
+            </DropdownButton>
           </Card.Body>
         </Card>
       </Col>
