@@ -1,5 +1,4 @@
 import { Col, Container, Row } from "react-bootstrap";
-import FetchTest from "./FetchTest";
 import SignInSide from "./Login";
 import { Form } from "react-bootstrap";
 import { useState } from "react";

@@ -5,55 +5,288 @@ import Navbardef from "./Navbardef";
 import { Modal, Button, Form } from "react-bootstrap";
 import React from "react";
 
-const postcity = async event => {};
-
-const putcity = async event => {};
-
-const deletecity = async event => {};
-
-const posthotel = async event => {};
-
-const puthotel = async event => {};
-
-const deletehotel = async event => {};
-
-const postreservation = async event => {};
-
-const putreservation = async event => {};
-
-const deletereservation = async event => {};
-
-const postreview = async event => {};
-
-const putreview = async event => {};
-
-const deletereview = async event => {};
+const restoperator = async (event, endpoint, token) => {
+  event.preventDefault();
+  try {
+    if (endpoint.includes("/cities/add")) {
+      const data = new FormData(event.currentTarget);
+      const dataobj = Object.fromEntries(data.entries());
+      const risposta = await fetch("http://localhost:3001" + endpoint, {
+        method: "POST",
+        headers: {
+          Authorization: "Bearer " + token,
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({
+          name: dataobj.name,
+          province: dataobj.province,
+          state: dataobj.state,
+          population: parseInt(dataobj.population),
+        }),
+      });
+      if (risposta.ok) {
+        console.log("cityPOST success");
+      } else {
+        console.log("error in the REST operator");
+      }
+    }
+    if (endpoint.includes("/cities/modify")) {
+      const data = new FormData(event.currentTarget);
+      const dataobj = Object.fromEntries(data.entries());
+      const risposta = await fetch("http://localhost:3001" + endpoint + dataobj.id, {
+        method: "PUT",
+        headers: {
+          Authorization: "Bearer " + token,
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({
+          name: dataobj.name,
+          province: dataobj.province,
+          state: dataobj.state,
+          population: parseInt(dataobj.population),
+        }),
+      });
+      if (risposta.ok) {
+        console.log("cityPUT success");
+      } else {
+        console.log("error in the REST operator");
+      }
+    }
+    if (endpoint.includes("/cities/delete")) {
+      const data = new FormData(event.currentTarget);
+      const dataobj = Object.fromEntries(data.entries());
+      const risposta = await fetch("http://localhost:3001" + endpoint + dataobj.id, {
+        method: "DELETE",
+        headers: {
+          Authorization: "Bearer " + token,
+          "content-type": "application/json",
+        },
+      });
+      if (risposta.ok) {
+        console.log("cityDELETE success");
+      } else {
+        console.log("error in the REST operator");
+      }
+    }
+    if (endpoint.includes("/hotels/add")) {
+      const data = new FormData(event.currentTarget);
+      const dataobj = Object.fromEntries(data.entries());
+      const risposta = await fetch("http://localhost:3001" + endpoint, {
+        method: "POST",
+        headers: {
+          Authorization: "Bearer " + token,
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({
+          name: dataobj.name,
+          stars: parseInt(dataobj.stars),
+          hotelType: dataobj.type.toUpperCase(),
+          wifi: dataobj.wifi === "on" ? true : false,
+          breakfast: dataobj.breakfast === "on" ? true : false,
+          pool: dataobj.pool === "on" ? true : false,
+          parking: dataobj.parking === "on" ? true : false,
+          websiteURL: dataobj.website,
+        }),
+      });
+      if (risposta.ok) {
+        console.log("hotelPOST success");
+      } else {
+        console.log("error in the REST operator");
+      }
+    }
+    if (endpoint.includes("/hotels/modify")) {
+      const data = new FormData(event.currentTarget);
+      const dataobj = Object.fromEntries(data.entries());
+      const risposta = await fetch("http://localhost:3001" + endpoint + dataobj.id, {
+        method: "PUT",
+        headers: {
+          Authorization: "Bearer " + token,
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({
+          name: dataobj.name,
+          stars: parseInt(dataobj.stars),
+          hotelType: dataobj.type.toUpperCase(),
+          wifi: dataobj.wifi === "on" ? true : false,
+          breakfast: dataobj.breakfast === "on" ? true : false,
+          pool: dataobj.pool === "on" ? true : false,
+          parking: dataobj.parking === "on" ? true : false,
+          websiteURL: dataobj.website,
+        }),
+      });
+      if (risposta.ok) {
+        console.log("hotelPUT success");
+      } else {
+        console.log("error in the REST operator");
+      }
+    }
+    if (endpoint.includes("/hotels/delete")) {
+      const data = new FormData(event.currentTarget);
+      const dataobj = Object.fromEntries(data.entries());
+      const risposta = await fetch("http://localhost:3001" + endpoint + dataobj.id, {
+        method: "DELETE",
+        headers: {
+          Authorization: "Bearer " + token,
+          "content-type": "application/json",
+        },
+      });
+      if (risposta.ok) {
+        console.log("hotelDELETE success");
+      } else {
+        console.log("error in the REST operator");
+      }
+    }
+    if (endpoint.includes("/reservations/add")) {
+      const data = new FormData(event.currentTarget);
+      const dataobj = Object.fromEntries(data.entries());
+      const risposta = await fetch("http://localhost:3001" + endpoint, {
+        method: "POST",
+        headers: {
+          Authorization: "Bearer " + token,
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({
+          reservation_start: dataobj.reservation_start,
+          reservation_end: dataobj.reservation_end,
+          hotelid: dataobj.hotelid,
+        }),
+      });
+      if (risposta.ok) {
+        console.log("reservationPOST success");
+      } else {
+        console.log("error in the REST operator");
+      }
+    }
+    if (endpoint.includes("/reservations/modify")) {
+      const data = new FormData(event.currentTarget);
+      const dataobj = Object.fromEntries(data.entries());
+      const risposta = await fetch("http://localhost:3001" + endpoint + dataobj.id, {
+        method: "PUT",
+        headers: {
+          Authorization: "Bearer " + token,
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({
+          reservation_start: dataobj.reservation_start,
+          reservation_end: dataobj.reservation_end,
+          hotelid: dataobj.hotelid,
+        }),
+      });
+      if (risposta.ok) {
+        console.log("reservationPUT success");
+      } else {
+        console.log("error in the REST operator");
+      }
+    }
+    if (endpoint.includes("/reservations/delete")) {
+      const data = new FormData(event.currentTarget);
+      const dataobj = Object.fromEntries(data.entries());
+      const risposta = await fetch("http://localhost:3001" + endpoint + dataobj.id, {
+        method: "DELETE",
+        headers: {
+          Authorization: "Bearer " + token,
+          "content-type": "application/json",
+        },
+      });
+      if (risposta.ok) {
+        console.log("reservationDELETE success");
+      } else {
+        console.log("error in the REST operator");
+      }
+    }
+    if (endpoint.includes("/reviews/add")) {
+      const data = new FormData(event.currentTarget);
+      const dataobj = Object.fromEntries(data.entries());
+      const risposta = await fetch("http://localhost:3001" + endpoint, {
+        method: "POST",
+        headers: {
+          Authorization: "Bearer " + token,
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({
+          evaluation: parseInt(dataobj.evaluation),
+          description: dataobj.description,
+          date_of_dispatch: dataobj.date_of_dispatch,
+          userid: dataobj.userid,
+          hotelid: dataobj.hotelid,
+        }),
+      });
+      if (risposta.ok) {
+        console.log("reviewPOST success");
+      } else {
+        console.log("error in the REST operator");
+      }
+    }
+    if (endpoint.includes("/reviews/modify")) {
+      const data = new FormData(event.currentTarget);
+      const dataobj = Object.fromEntries(data.entries());
+      const risposta = await fetch("http://localhost:3001" + endpoint + dataobj.id, {
+        method: "PUT",
+        headers: {
+          Authorization: "Bearer " + token,
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({
+          evaluation: parseInt(dataobj.evaluation),
+          description: dataobj.description,
+          date_of_dispatch: dataobj.date_of_dispatch,
+          userid: dataobj.userid,
+          hotelid: dataobj.hotelid,
+        }),
+      });
+      if (risposta.ok) {
+        console.log("reviewPUT success");
+      } else {
+        console.log("error in the REST operator");
+      }
+    }
+    if (endpoint.includes("/reviews/delete")) {
+      const data = new FormData(event.currentTarget);
+      const dataobj = Object.fromEntries(data.entries());
+      const risposta = await fetch("http://localhost:3001" + endpoint + dataobj.id, {
+        method: "DELETE",
+        headers: {
+          Authorization: "Bearer " + token,
+          "content-type": "application/json",
+        },
+      });
+      if (risposta.ok) {
+        console.log("reviewDELETE success");
+      } else {
+        console.log("error in the REST operator");
+      }
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 function Addcity(props) {
+  const token = useSelector(state => state.login.token);
   return (
     <Modal {...props} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">Add city Modal</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Form>
+        <Form onSubmit={event => restoperator(event, "/cities/add", token)}>
           <Form.Group className="mb-3">
             <Form.Label>City name</Form.Label>
-            <Form.Control type="text" placeholder="Enter city Name" />
+            <Form.Control type="text" name="name" placeholder="Enter city Name" />
           </Form.Group>
           <Form.Group className="mb-3">
             <Form.Label>City province</Form.Label>
-            <Form.Control type="text" placeholder="Enter city Province/Region" />
+            <Form.Control type="text" name="province" placeholder="Enter city Province/Region" />
           </Form.Group>
           <Form.Group className="mb-3">
             <Form.Label>City state</Form.Label>
-            <Form.Control type="text" placeholder="Enter city State" />
+            <Form.Control type="text" name="state" placeholder="Enter city State" />
           </Form.Group>
           <Form.Group className="mb-3">
             <Form.Label>City population</Form.Label>
-            <Form.Control type="text" placeholder="Enter city Population" />
+            <Form.Control type="text" name="population" placeholder="Enter city Population" />
           </Form.Group>
-          <Button onClick={postcity} variant="primary" type="submit">
+          <Button variant="primary" type="submit">
             Submit
           </Button>
         </Form>
@@ -66,34 +299,35 @@ function Addcity(props) {
 }
 
 function Modifycity(props) {
+  const token = useSelector(state => state.login.token);
   return (
     <Modal {...props} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">Modify city Modal</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Form>
+        <Form onSubmit={event => restoperator(event, `/cities/modify/id=`, token)}>
           <Form.Group className="mb-3">
             <Form.Label>To be modified City Id</Form.Label>
-            <Form.Control type="text" placeholder="Enter city Id" />
+            <Form.Control type="text" name="id" placeholder="Enter city Id" />
           </Form.Group>
           <Form.Group className="mb-3">
             <Form.Label>City name</Form.Label>
-            <Form.Control type="text" placeholder="Enter city Name" />
+            <Form.Control type="text" name="name" placeholder="Enter city Name" />
           </Form.Group>
           <Form.Group className="mb-3">
             <Form.Label>City province</Form.Label>
-            <Form.Control type="text" placeholder="Enter city Province/Region" />
+            <Form.Control type="text" name="province" placeholder="Enter city Province/Region" />
           </Form.Group>
           <Form.Group className="mb-3">
             <Form.Label>City state</Form.Label>
-            <Form.Control type="text" placeholder="Enter city State" />
+            <Form.Control type="text" name="state" placeholder="Enter city State" />
           </Form.Group>
           <Form.Group className="mb-3">
             <Form.Label>City population</Form.Label>
-            <Form.Control type="text" placeholder="Enter city Population" />
+            <Form.Control type="text" name="population" placeholder="Enter city Population" />
           </Form.Group>
-          <Button onClick={putcity} variant="primary" type="submit">
+          <Button variant="primary" type="submit">
             Submit
           </Button>
         </Form>
@@ -106,18 +340,19 @@ function Modifycity(props) {
 }
 
 function Deletecity(props) {
+  const token = useSelector(state => state.login.token);
   return (
     <Modal {...props} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">Delete city Modal</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Form>
+        <Form onSubmit={event => restoperator(event, `/cities/delete/id=`, token)}>
           <Form.Group className="mb-3">
             <Form.Label>To be deleted City Id</Form.Label>
-            <Form.Control type="text" placeholder="Enter city Id" />
+            <Form.Control type="text" name="id" placeholder="Enter city Id" />
           </Form.Group>
-          <Button onClick={deletecity} variant="primary" type="submit">
+          <Button variant="primary" type="submit">
             Submit
           </Button>
         </Form>
@@ -130,42 +365,43 @@ function Deletecity(props) {
 }
 
 function Addhotel(props) {
+  const token = useSelector(state => state.login.token);
   return (
     <Modal {...props} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">Add hotel Modal</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Form>
+        <Form onSubmit={event => restoperator(event, `/hotels/add=`, token)}>
           <Form.Group className="mb-3">
             <Form.Label>Hotel name</Form.Label>
-            <Form.Control type="text" placeholder="Enter hotel Name" />
+            <Form.Control type="text" name="name" placeholder="Enter hotel Name" />
           </Form.Group>
           <Form.Group className="mb-3">
             <Form.Label>Hotel stars</Form.Label>
-            <Form.Control type="text" placeholder="Enter hotel stars" />
+            <Form.Control type="text" name="stars" placeholder="Enter hotel stars" />
           </Form.Group>
           <Form.Group className="mb-3">
             <Form.Label>Hotel type</Form.Label>
-            <Form.Control type="text" placeholder="Enter hotel type" />
+            <Form.Control type="text" name="type" placeholder="Enter hotel type" />
           </Form.Group>
           <Form.Group className="mb-3">
             <Form.Label>Hotel website</Form.Label>
-            <Form.Control type="text" placeholder="Enter hotel website" />
+            <Form.Control type="text" name="website" placeholder="Enter hotel website" />
           </Form.Group>
           <Form.Group className="mb-3">
-            <Form.Check type="checkbox" label="Parking" />
+            <Form.Check type="checkbox" name="parking" label="Parking" />
           </Form.Group>
           <Form.Group className="mb-3">
-            <Form.Check type="checkbox" label="Wi-Fi" />
+            <Form.Check type="checkbox" name="wifi" label="Wi-Fi" />
           </Form.Group>
           <Form.Group className="mb-3">
-            <Form.Check type="checkbox" label="Breakfast" />
+            <Form.Check type="checkbox" name="breakfast" label="Breakfast" />
           </Form.Group>
           <Form.Group className="mb-3">
-            <Form.Check type="checkbox" label="Pool" />
+            <Form.Check type="checkbox" name="pool" label="Pool" />
           </Form.Group>
-          <Button onClick={posthotel} variant="primary" type="submit">
+          <Button variant="primary" type="submit">
             Submit
           </Button>
         </Form>
@@ -178,46 +414,47 @@ function Addhotel(props) {
 }
 
 function Modifyhotel(props) {
+  const token = useSelector(state => state.login.token);
   return (
     <Modal {...props} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">Modify hotel Modal</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Form>
+        <Form onSubmit={event => restoperator(event, `/hotels/modify/id=`, token)}>
           <Form.Group className="mb-3">
             <Form.Label>To be modified Hotel Id</Form.Label>
-            <Form.Control type="text" placeholder="Enter hotel Id" />
+            <Form.Control type="text" name="id" placeholder="Enter hotel Id" />
           </Form.Group>
           <Form.Group className="mb-3">
             <Form.Label>Hotel name</Form.Label>
-            <Form.Control type="text" placeholder="Enter hotel Name" />
+            <Form.Control type="text" name="name" placeholder="Enter hotel Name" />
           </Form.Group>
           <Form.Group className="mb-3">
             <Form.Label>Hotel stars</Form.Label>
-            <Form.Control type="text" placeholder="Enter hotel stars" />
+            <Form.Control type="text" name="stars" placeholder="Enter hotel stars" />
           </Form.Group>
           <Form.Group className="mb-3">
             <Form.Label>Hotel type</Form.Label>
-            <Form.Control type="text" placeholder="Enter hotel type" />
+            <Form.Control type="text" name="type" placeholder="Enter hotel type" />
           </Form.Group>
           <Form.Group className="mb-3">
             <Form.Label>Hotel website</Form.Label>
-            <Form.Control type="text" placeholder="Enter hotel website" />
+            <Form.Control type="text" name="website" placeholder="Enter hotel website" />
           </Form.Group>
           <Form.Group className="mb-3">
-            <Form.Check type="checkbox" label="Parking" />
+            <Form.Check type="checkbox" name="parking" label="Parking" />
           </Form.Group>
           <Form.Group className="mb-3">
-            <Form.Check type="checkbox" label="Wi-Fi" />
+            <Form.Check type="checkbox" name="wifi" label="Wi-Fi" />
           </Form.Group>
           <Form.Group className="mb-3">
-            <Form.Check type="checkbox" label="Breakfast" />
+            <Form.Check type="checkbox" name="breakfast" label="Breakfast" />
           </Form.Group>
           <Form.Group className="mb-3">
-            <Form.Check type="checkbox" label="Pool" />
+            <Form.Check type="checkbox" name="pool" label="Pool" />
           </Form.Group>
-          <Button onClick={posthotel} variant="primary" type="submit">
+          <Button variant="primary" type="submit">
             Submit
           </Button>
         </Form>
@@ -230,18 +467,19 @@ function Modifyhotel(props) {
 }
 
 function Deletehotel(props) {
+  const token = useSelector(state => state.login.token);
   return (
     <Modal {...props} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">Delete hotel Modal</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Form>
+        <Form onSubmit={event => restoperator(event, `/hotels/delete/id=`, token)}>
           <Form.Group className="mb-3">
             <Form.Label>To be deleted Hotel Id</Form.Label>
-            <Form.Control type="text" placeholder="Enter Hotel Id" />
+            <Form.Control type="text" name="id" placeholder="Enter Hotel Id" />
           </Form.Group>
-          <Button onClick={deletecity} variant="primary" type="submit">
+          <Button variant="primary" type="submit">
             Submit
           </Button>
         </Form>
@@ -254,26 +492,31 @@ function Deletehotel(props) {
 }
 
 function Addreservation(props) {
+  const token = useSelector(state => state.login.token);
   return (
     <Modal {...props} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">Add Reservation Modal</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Form>
+        <Form onSubmit={event => restoperator(event, `/reservations/add`, token)}>
           <Form.Group className="mb-3">
             <Form.Label>Reservation start date</Form.Label>
-            <Form.Control type="text" placeholder="Enter reservation start" />
+            <Form.Control
+              type="text"
+              name="reservation_start"
+              placeholder="Enter reservation start - format yyyy-mm-dd"
+            />
           </Form.Group>
           <Form.Group className="mb-3">
             <Form.Label>Reservation end date</Form.Label>
-            <Form.Control type="text" placeholder="Enter reservation end" />
+            <Form.Control type="text" name="reservation_end" placeholder="Enter reservation end - format yyyy-mm-dd" />
           </Form.Group>
           <Form.Group className="mb-3">
             <Form.Label>Hotel Id</Form.Label>
-            <Form.Control type="text" placeholder="Enter hotel Id" />
+            <Form.Control type="text" name="hotelid" placeholder="Enter hotel Id" />
           </Form.Group>
-          <Button onClick={postreservation} variant="primary" type="submit">
+          <Button variant="primary" type="submit">
             Submit
           </Button>
         </Form>
@@ -286,30 +529,35 @@ function Addreservation(props) {
 }
 
 function Modifyreservation(props) {
+  const token = useSelector(state => state.login.token);
   return (
     <Modal {...props} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">Modify Reservation Modal</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Form>
+        <Form onSubmit={event => restoperator(event, `/reservations/modify/id=`, token)}>
           <Form.Group className="mb-3">
             <Form.Label>To be modified Reservation Id</Form.Label>
-            <Form.Control type="text" placeholder="Enter reservation Id" />
+            <Form.Control type="text" name="id" placeholder="Enter reservation Id" />
           </Form.Group>
           <Form.Group className="mb-3">
             <Form.Label>Reservation start date</Form.Label>
-            <Form.Control type="text" placeholder="Enter reservation start" />
+            <Form.Control
+              type="text"
+              name="reservation_start"
+              placeholder="Enter reservation start - format yyyy-mm-dd"
+            />
           </Form.Group>
           <Form.Group className="mb-3">
             <Form.Label>Reservation end date</Form.Label>
-            <Form.Control type="text" placeholder="Enter reservation end" />
+            <Form.Control type="text" name="reservation_end" placeholder="Enter reservation end - format yyyy-mm-dd" />
           </Form.Group>
           <Form.Group className="mb-3">
             <Form.Label>Hotel Id</Form.Label>
-            <Form.Control type="text" placeholder="Enter hotel Id" />
+            <Form.Control type="text" name="hotelid" placeholder="Enter hotel Id" />
           </Form.Group>
-          <Button onClick={putreservation} variant="primary" type="submit">
+          <Button variant="primary" type="submit">
             Submit
           </Button>
         </Form>
@@ -322,18 +570,19 @@ function Modifyreservation(props) {
 }
 
 function Deletereservation(props) {
+  const token = useSelector(state => state.login.token);
   return (
     <Modal {...props} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">Delete reservation Modal</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Form>
+        <Form onSubmit={event => restoperator(event, `/reservations/delete/id=`, token)}>
           <Form.Group className="mb-3">
             <Form.Label>To be deleted reservation Id</Form.Label>
-            <Form.Control type="text" placeholder="Enter Reservation Id" />
+            <Form.Control type="text" name="id" placeholder="Enter Reservation Id" />
           </Form.Group>
-          <Button onClick={deletereservation} variant="primary" type="submit">
+          <Button variant="primary" type="submit">
             Submit
           </Button>
         </Form>
@@ -346,34 +595,35 @@ function Deletereservation(props) {
 }
 
 function Addreview(props) {
+  const token = useSelector(state => state.login.token);
   return (
     <Modal {...props} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">Add Review Modal</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Form>
+        <Form onSubmit={event => restoperator(event, `/reviews/add`, token)}>
           <Form.Group className="mb-3">
             <Form.Label>Review evaluation</Form.Label>
-            <Form.Control type="text" placeholder="Enter review evaluation" />
+            <Form.Control type="text" name="evaluation" placeholder="Enter review evaluation" />
           </Form.Group>
           <Form.Group className="mb-3">
             <Form.Label>Review description</Form.Label>
-            <Form.Control type="text" placeholder="Enter review description" />
+            <Form.Control type="text" name="description" placeholder="Enter review description" />
           </Form.Group>
           <Form.Group className="mb-3">
             <Form.Label>Review date of dispatch</Form.Label>
-            <Form.Control type="text" placeholder="Enter review date" />
+            <Form.Control type="text" name="date_of_dispatch" placeholder="Enter review date - format yyyy-mm-dd" />
           </Form.Group>
           <Form.Group className="mb-3">
             <Form.Label>Review user Id</Form.Label>
-            <Form.Control type="text" placeholder="Enter review user Id" />
+            <Form.Control type="text" name="userid" placeholder="Enter review user Id" />
           </Form.Group>
           <Form.Group className="mb-3">
             <Form.Label>Review hotel Id</Form.Label>
-            <Form.Control type="text" placeholder="Enter review hotel Id" />
+            <Form.Control type="text" name="hotelid" placeholder="Enter review hotel Id" />
           </Form.Group>
-          <Button onClick={postreview} variant="primary" type="submit">
+          <Button variant="primary" type="submit">
             Submit
           </Button>
         </Form>
@@ -386,38 +636,39 @@ function Addreview(props) {
 }
 
 function Modifyreview(props) {
+  const token = useSelector(state => state.login.token);
   return (
     <Modal {...props} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">Modify Review Modal</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Form>
+        <Form onSubmit={event => restoperator(event, `/reviews/modify/id=`, token)}>
           <Form.Group className="mb-3">
             <Form.Label>To be modified Review Id</Form.Label>
-            <Form.Control type="text" placeholder="Enter review Id" />
+            <Form.Control type="text" name="id" placeholder="Enter review Id" />
           </Form.Group>
           <Form.Group className="mb-3">
             <Form.Label>Review evaluation</Form.Label>
-            <Form.Control type="text" placeholder="Enter review evaluation" />
+            <Form.Control type="text" name="evaluation" placeholder="Enter review evaluation" />
           </Form.Group>
           <Form.Group className="mb-3">
             <Form.Label>Review description</Form.Label>
-            <Form.Control type="text" placeholder="Enter review description" />
+            <Form.Control type="text" name="description" placeholder="Enter review description" />
           </Form.Group>
           <Form.Group className="mb-3">
             <Form.Label>Review date of dispatch</Form.Label>
-            <Form.Control type="text" placeholder="Enter review date" />
+            <Form.Control type="text" name="date_of_dispatch" placeholder="Enter review date - format yyyy-mm-dd" />
           </Form.Group>
           <Form.Group className="mb-3">
             <Form.Label>Review user Id</Form.Label>
-            <Form.Control type="text" placeholder="Enter review user Id" />
+            <Form.Control type="text" name="userid" placeholder="Enter review user Id" />
           </Form.Group>
           <Form.Group className="mb-3">
             <Form.Label>Review hotel Id</Form.Label>
-            <Form.Control type="text" placeholder="Enter review hotel Id" />
+            <Form.Control type="text" name="hotelid" placeholder="Enter review hotel Id" />
           </Form.Group>
-          <Button onClick={putreview} variant="primary" type="submit">
+          <Button variant="primary" type="submit">
             Submit
           </Button>
         </Form>
@@ -430,18 +681,19 @@ function Modifyreview(props) {
 }
 
 function Deletereview(props) {
+  const token = useSelector(state => state.login.token);
   return (
     <Modal {...props} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">Delete review Modal</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Form>
+        <Form onSubmit={event => restoperator(event, `/reviews/delete/id=`, token)}>
           <Form.Group className="mb-3">
             <Form.Label>To be deleted review Id</Form.Label>
-            <Form.Control type="text" placeholder="Enter Review Id" />
+            <Form.Control type="text" name="id" placeholder="Enter Review Id" />
           </Form.Group>
-          <Button onClick={deletereview} variant="primary" type="submit">
+          <Button variant="primary" type="submit">
             Submit
           </Button>
         </Form>
@@ -466,7 +718,6 @@ const Admin = () => {
   const [modal10Show, setModal10Show] = React.useState(false);
   const [modal11Show, setModal11Show] = React.useState(false);
   const [modal12Show, setModal12Show] = React.useState(false);
-
   return (
     <Container>
       <Navbardef className="mb-5" />
@@ -538,7 +789,7 @@ const Admin = () => {
             Delete review
           </Button>
 
-          <Deletereservation show={modal12Show} onHide={() => setModal12Show(false)} />
+          <Deletereview show={modal12Show} onHide={() => setModal12Show(false)} />
         </Col>
       </Row>
     </Container>
